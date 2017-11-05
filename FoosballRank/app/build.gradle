@@ -5,7 +5,6 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.ivanarellano.foosballrank"
-        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -15,6 +14,30 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "minApi", "stage"
+
+    productFlavors {
+        dev {
+            dimension "stage"
+            resConfigs "en", "xxhdpi"
+        }
+        prod {
+            dimension "stage"
+        }
+        minApi26 {
+            dimension "minApi"
+            minSdkVersion 26
+            versionCode 2600 + android.defaultConfig.versionCode
+            versionNameSuffix "-minApi26"
+        }
+        minApi19 {
+            dimension "minApi"
+            minSdkVersion 19
+            versionCode 1900 + android.defaultConfig.versionCode
+            versionNameSuffix "-minApi19"
         }
     }
 }
