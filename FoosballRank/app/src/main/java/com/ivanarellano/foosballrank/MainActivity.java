@@ -1,13 +1,13 @@
 package com.ivanarellano.foosballrank;
 
 import android.content.Intent;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -23,7 +23,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.firebase.ui.auth.AuthUI.*;
 
@@ -41,9 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (!isSignedIn()) {
             showSignIn();
-            Log.d("MainActivity", "Show Sign In");
         } else {
-            Log.d("MainActivity", "Already signed in");
+            showSnackbar(R.string.sign_in_success);
         }
     }
 
@@ -52,24 +50,27 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
+            handleSignInResponse(resultCode, data);
+        }
+    }
 
-            if (resultCode == RESULT_OK) {
-                // Retrieve the ID token
-                showSnackbar(R.string.sign_in_success);
-                IdpResponse idpResponse = IdpResponse.fromResultIntent(data);
-//                startActivity(SignedInActivity.createIntent(this, response));
-//                finish();
-            } else {
-                if (response == null) {
-                    // User pressed back button
-                    showSnackbar(R.string.sign_in_cancelled);
-                    return;
-                }
+    @MainThread
+    private void handleSignInResponse(int resultCode, Intent data) {
+        IdpResponse response = IdpResponse.fromResultIntent(data);
 
-                if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
-                    showSnackbar(R.string.no_internet_connection);
-                }
+        if (resultCode == RESULT_OK) {
+            showSnackbar(R.string.sign_in_success);
+
+            helloFirebase();
+        } else {
+            if (response == null) {
+                // User pressed back button
+                showSnackbar(R.string.sign_in_cancelled);
+                return;
+            }
+
+            if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                showSnackbar(R.string.no_internet_connection);
             }
         }
     }
@@ -102,9 +103,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-
-    @OnClick(R.id.sign_out)
-    protected void signOut () {
+    private void signOut () {
         AuthUI authUi = getInstance();
         authUi.signOut(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

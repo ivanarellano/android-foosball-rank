@@ -7,11 +7,4 @@
     android:layout_height="match_parent"
     tools:context="com.ivanarellano.foosballrank.MainActivity">
 
-    <Button
-        android:id="@+id/sign_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_out"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="231dp" />
 </android.support.constraint.ConstraintLayout>

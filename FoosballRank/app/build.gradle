@@ -33,11 +33,11 @@ android {
             versionCode 2600 + android.defaultConfig.versionCode
             versionNameSuffix "-minApi26"
         }
-        minApi19 {
+        minApi21 {
             dimension "minApi"
-            minSdkVersion 19
-            versionCode 1900 + android.defaultConfig.versionCode
-            versionNameSuffix "-minApi19"
+            minSdkVersion 21
+            versionCode 2100 + android.defaultConfig.versionCode
+            versionNameSuffix "-minApi21"
         }
     }
 }
@@ -45,7 +45,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation supportDependencies.appCompat
     implementation supportDependencies.design
     implementation supportDependencies.constraintLayout
 
