@@ -1,5 +1,42 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+ext {
+    supportLibraryVersion   = '26.1.0'
+    constraintLayoutVersion = '1.0.2'
+
+    threeTenBpVersion       = '1.0.5'
+    glideVersion            = '4.3.0'
+    butterknifeVersion      = '8.8.1'
+    daggerVersion           = '2.12'
+
+    junitVersion            = '4.12'
+    testRunnerVersion       = '1.0.1'
+    testEspressoVersion     = '3.0.1'
+}
+
+ext {
+    supportDependencies = [
+        appCompat: "com.android.support:appcompat-v7:$supportLibraryVersion",
+        design: "com.android.support:design:$supportLibraryVersion",
+        constraintLayout: "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    ]
+    thirdPartyDependencies = [
+        threeTenBp: "com.jakewharton.threetenabp:threetenabp:$threeTenBpVersion",
+        butterknife: "com.jakewharton:butterknife:$butterknifeVersion",
+        butterknifeCompiler: "com.jakewharton:butterknife-compiler:$butterknifeVersion",
+        glide: "com.github.bumptech.glide:glide:$glideVersion",
+        glideCompiler: "com.github.bumptech.glide:compiler:$glideVersion",
+        dagger: "com.google.dagger:dagger-android:$daggerVersion",
+        daggerSupport: "com.google.dagger:dagger-android-support:$daggerVersion",
+        daggerCompile: "com.google.dagger:dagger-android-processor:$daggerVersion",
+    ]
+    testDependencies = [
+        junit: "junit:junit:$junitVersion",
+        androidTestRunner: "com.android.support.test:runner:$testRunnerVersion",
+        androidEspressoCore: "com.android.support.test.espresso:espresso-core:$testEspressoVersion"
+    ]
+}
+
 buildscript {
     
     repositories {

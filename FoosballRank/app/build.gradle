@@ -21,11 +21,24 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    implementation supportDependencies.appCompat
+    implementation supportDependencies.design
+    implementation supportDependencies.constraintLayout
+
+    implementation thirdPartyDependencies.threeTenBp
+    implementation thirdPartyDependencies.glide
+    implementation thirdPartyDependencies.dagger
+    implementation thirdPartyDependencies.daggerSupport
+    implementation thirdPartyDependencies.butterknife
+    
+    annotationProcessor thirdPartyDependencies.glideCompiler
+    annotationProcessor thirdPartyDependencies.daggerCompile
+    annotationProcessor thirdPartyDependencies.butterknifeCompiler
+
+    testImplementation testDependencies.junit
+    androidTestImplementation testDependencies.androidTestRunner
+    androidTestImplementation testDependencies.androidEspressoCore
 }
 
 apply plugin: 'com.google.gms.google-services'
