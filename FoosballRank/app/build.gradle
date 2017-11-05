@@ -26,12 +26,13 @@ dependencies {
     implementation supportDependencies.design
     implementation supportDependencies.constraintLayout
 
+    implementation thirdPartyDependencies.firebase
     implementation thirdPartyDependencies.threeTenBp
     implementation thirdPartyDependencies.glide
     implementation thirdPartyDependencies.dagger
     implementation thirdPartyDependencies.daggerSupport
     implementation thirdPartyDependencies.butterknife
-    
+
     annotationProcessor thirdPartyDependencies.glideCompiler
     annotationProcessor thirdPartyDependencies.daggerCompile
     annotationProcessor thirdPartyDependencies.butterknifeCompiler

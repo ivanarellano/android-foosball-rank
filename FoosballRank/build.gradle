@@ -4,6 +4,7 @@ ext {
     supportLibraryVersion   = '26.1.0'
     constraintLayoutVersion = '1.0.2'
 
+    firebaseVersion         = '11.4.2'
     threeTenBpVersion       = '1.0.5'
     glideVersion            = '4.3.0'
     butterknifeVersion      = '8.8.1'
@@ -21,6 +22,7 @@ ext {
         constraintLayout: "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
     ]
     thirdPartyDependencies = [
+        firebase: "com.google.firebase:firebase-database:$firebaseVersion",
         threeTenBp: "com.jakewharton.threetenabp:threetenabp:$threeTenBpVersion",
         butterknife: "com.jakewharton:butterknife:$butterknifeVersion",
         butterknifeCompiler: "com.jakewharton:butterknife-compiler:$butterknifeVersion",
