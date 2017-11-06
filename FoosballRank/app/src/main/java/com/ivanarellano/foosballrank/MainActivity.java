@@ -5,9 +5,11 @@ import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -30,13 +32,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 15;
 
-    @BindView(R.id.cl_root) ConstraintLayout m_RootLayout;
+    @BindView(R.id.cl_root) ConstraintLayout rootLayout;
+    @BindView(R.id.bn_navigation) BottomNavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
 
         if (!isSignedIn()) {
             showSignIn();
@@ -76,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSnackbar(@StringRes int id) {
-        Snackbar.make(m_RootLayout, id, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(rootLayout, id, Snackbar.LENGTH_SHORT).show();
     }
 
     private void helloFirebase() {
@@ -113,4 +118,21 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    return true;
+                case R.id.navigation_dashboard:
+                    return true;
+                case R.id.navigation_notifications:
+                    return true;
+            }
+            return false;
+        }
+    };
 }

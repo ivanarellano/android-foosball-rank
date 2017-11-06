@@ -5,4 +5,8 @@
     <string name="sign_in_success">You are signed in.</string>
     <string name="sign_out_success">You are signed out.</string>
     <string name="sign_out">Sign out</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_rankings">Rankings</string>
+    <string name="title_activity">Activity</string>
+    <string name="title_coin">Coin</string>
 </resources>
