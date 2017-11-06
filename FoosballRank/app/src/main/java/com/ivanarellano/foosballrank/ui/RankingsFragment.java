@@ -11,7 +11,7 @@ import com.ivanarellano.foosballrank.R;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-final public class RankingFragment extends Fragment {
+final public class RankingsFragment extends Fragment {
 
     private Unbinder unbinder;
 

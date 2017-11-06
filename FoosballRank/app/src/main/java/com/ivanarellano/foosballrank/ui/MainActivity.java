@@ -1,12 +1,13 @@
-package com.ivanarellano.foosballrank;
+package com.ivanarellano.foosballrank.ui;
 
 import android.content.Intent;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -19,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.ivanarellano.foosballrank.BuildConfig;
+import com.ivanarellano.foosballrank.R;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +31,10 @@ import butterknife.ButterKnife;
 
 import static com.firebase.ui.auth.AuthUI.*;
 
-public class MainActivity extends AppCompatActivity {
+final public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 15;
 
-    @BindView(R.id.cl_root) ConstraintLayout rootLayout;
     @BindView(R.id.bn_navigation) BottomNavigationView navigation;
 
     @Override
@@ -42,12 +44,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-
-        if (!isSignedIn()) {
-            showSignIn();
-        } else {
-            showSnackbar(R.string.sign_in_success);
-        }
+        navigation.setSelectedItemId(R.id.navigation_rankings);
     }
 
     @Override
@@ -80,16 +77,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showSnackbar(@StringRes int id) {
-        Snackbar.make(rootLayout, id, Snackbar.LENGTH_SHORT).show();
-    }
-
     private void helloFirebase() {
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        if (!isSignedIn()) {
+            showSignIn();
+        } else {
+            showSnackbar(R.string.sign_in_success);
 
-        myRef.setValue("Hello, World!");
+            // Write a message to the database
+            //FirebaseDatabase database = FirebaseDatabase.getInstance();
+            //DatabaseReference myRef = database.getReference("message");
+
+            //myRef.setValue("Hello, World!");
+        }
     }
 
     private boolean isSignedIn() {
@@ -119,6 +118,16 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    private void showSnackbar(@StringRes int id) {
+        Snackbar.make(findViewById(R.id.cl_root), id, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private void showFragment(@NonNull Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fl_fragment_container, fragment);
+        transaction.commit();
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -126,10 +135,13 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_rankings:
+                    showFragment(new RankingsFragment());
                     return true;
                 case R.id.navigation_activity:
+                    showFragment(new ActivityFragment());
                     return true;
-                case R.id.navigation_coin:
+                case R.id.navigation_coin_flip:
+                    showFragment(new CoinFragment());
                     return true;
             }
             return false;

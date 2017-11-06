@@ -9,11 +9,13 @@
     <item
         android:id="@+id/navigation_activity"
         android:icon="@drawable/ic_timeline_black"
-        android:title="@string/title_activity" />
+        android:title="@string/title_activity"
+        android:enabled="false"/>
 
     <item
-        android:id="@+id/navigation_coin"
+        android:id="@+id/navigation_coin_flip"
         android:icon="@drawable/ic_toll_black"
-        android:title="@string/title_coin" />
+        android:title="@string/title_coin_flip"
+        android:enabled="false"/>
 
 </menu>
