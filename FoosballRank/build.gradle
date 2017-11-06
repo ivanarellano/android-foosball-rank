@@ -23,7 +23,7 @@ ext {
         constraintLayout: "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
     ]
     thirdPartyDependencies = [
-        firebase: "com.google.firebase:firebase-database:$firebaseVersion",
+        firebaseDatabase: "com.google.firebase:firebase-database:$firebaseVersion",
         firebaseUiAuth: "com.firebaseui:firebase-ui-auth:$firebaseUiVersion",
         threeTenBp: "com.jakewharton.threetenabp:threetenabp:$threeTenBpVersion",
         butterknife: "com.jakewharton:butterknife:$butterknifeVersion",
