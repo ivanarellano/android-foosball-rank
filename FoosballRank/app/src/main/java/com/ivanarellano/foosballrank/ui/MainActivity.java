@@ -18,8 +18,6 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.ivanarellano.foosballrank.BuildConfig;
 import com.ivanarellano.foosballrank.R;
 
@@ -82,12 +80,6 @@ final public class MainActivity extends AppCompatActivity {
             showSignIn();
         } else {
             showSnackbar(R.string.sign_in_success);
-
-            // Write a message to the database
-            //FirebaseDatabase database = FirebaseDatabase.getInstance();
-            //DatabaseReference myRef = database.getReference("message");
-
-            //myRef.setValue("Hello, World!");
         }
     }
 
@@ -135,13 +127,13 @@ final public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_rankings:
-                    showFragment(new RankingsFragment());
+                    showFragment(RankingsFragment.newInstance());
                     return true;
                 case R.id.navigation_activity:
-                    showFragment(new ActivityFragment());
+                    showFragment(ActivityFragment.newInstance());
                     return true;
                 case R.id.navigation_coin_flip:
-                    showFragment(new CoinFragment());
+                    showFragment(CoinFragment.newInstance());
                     return true;
             }
             return false;

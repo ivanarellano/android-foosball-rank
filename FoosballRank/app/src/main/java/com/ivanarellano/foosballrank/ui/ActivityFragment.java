@@ -15,6 +15,10 @@ final public class ActivityFragment extends Fragment {
 
     private Unbinder unbinder;
 
+    public static ActivityFragment newInstance() {
+        return new ActivityFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_activity, container, false);

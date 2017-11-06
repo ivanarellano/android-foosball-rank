@@ -15,6 +15,10 @@ final public class CoinFragment extends Fragment {
 
     private Unbinder unbinder;
 
+    public static CoinFragment newInstance() {
+        return new CoinFragment();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_coin, container, false);
