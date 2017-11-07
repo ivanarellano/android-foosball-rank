@@ -1,20 +1,29 @@
 package com.ivanarellano.foosballrank.ui.rankings;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ivanarellano.foosballrank.R;
 import com.ivanarellano.foosballrank.data.Ranking;
+import com.ivanarellano.foosballrank.data.remote.PlayerMatch;
+import com.ivanarellano.foosballrank.data.remote.PlayerMatches;
+import com.ivanarellano.foosballrank.data.remote.Players;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,9 +39,9 @@ final public class RankingsFragment extends Fragment {
     @BindView(R.id.rv_rankings_list) RecyclerView rankingsRecyclerView;
 
     private Unbinder unbinder;
-
-    DatabaseReference rootRef;
-    DatabaseReference playerMatchesRef;
+    private DatabaseReference playersRef;
+    private DatabaseReference playerMatchesRef;
+    private RankingsAdapter rankingsAdapter;
 
     public static RankingsFragment newInstance() {
         return new RankingsFragment();
@@ -41,7 +50,9 @@ final public class RankingsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rootRef = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        playersRef = rootRef.child(PLAYERS);
         playerMatchesRef = rootRef.child(PLAYER_MATCHES);
     }
 
@@ -64,7 +75,6 @@ final public class RankingsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
         initializeRankings();
     }
 
@@ -75,12 +85,64 @@ final public class RankingsFragment extends Fragment {
     }
 
     private void initializeRankings() {
-        List<Ranking> testData = new ArrayList<Ranking>() {{
+        playersRef.addListenerForSingleValueEvent(playersListener);
+        playerMatchesRef.addValueEventListener(playerMatchesListener);
+
+        rankingsAdapter = new RankingsAdapter();
+        rankingsRecyclerView.setAdapter(rankingsAdapter);
+    }
+
+    @NonNull
+    private List<Ranking> getDemoRankings() {
+        return new ArrayList<Ranking>() {{
             add(new Ranking("Ivan", 4.98f));
             add(new Ranking("Mike", 4.90f));
         }};
-
-        RankingsAdapter adapter = new RankingsAdapter(testData);
-        rankingsRecyclerView.setAdapter(adapter);
     }
+
+    @NonNull
+    private List<Ranking> getRankings(@NonNull DataSnapshot dataSnapshot) {
+        ArrayList<Ranking> rankings = new ArrayList<>();
+        PlayerMatches playerMatches = dataSnapshot.getValue(PlayerMatches.class);
+
+//        if (playerMatches != null) {
+//            rankings.ensureCapacity(playerMatches.player_matches.size());
+//
+//            for (PlayerMatch match : playerMatches.player_matches.values()) {
+//                rankings.add(new Ranking(match.));
+//            }
+//        }
+
+//        rankingsAdapter.populateRankings();
+
+        return rankings;
+    }
+
+    private final ValueEventListener playersListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            if (dataSnapshot != null) {
+                Players players = dataSnapshot.getValue(Players.class);
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            Log.w(RankingsFragment.class.getCanonicalName(), "loadPlayers:onCancelled", databaseError.toException());
+        }
+    };
+
+    private final ValueEventListener playerMatchesListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            if (dataSnapshot != null) {
+                getRankings(dataSnapshot);
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            Log.w(RankingsFragment.class.getCanonicalName(), "loadPlayerMatches:onCancelled", databaseError.toException());
+        }
+    };
 }
