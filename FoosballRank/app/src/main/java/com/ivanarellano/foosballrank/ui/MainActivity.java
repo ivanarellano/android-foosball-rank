@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.firebase.ui.auth.AuthUI;
@@ -17,17 +18,17 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ivanarellano.foosballrank.BuildConfig;
 import com.ivanarellano.foosballrank.R;
+import com.ivanarellano.foosballrank.ui.rankings.RankingsFragment;
 
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.firebase.ui.auth.AuthUI.*;
 
 final public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +62,7 @@ final public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             showSnackbar(R.string.sign_in_success);
 
-            helloFirebase();
+            initializeAuth();
         } else {
             if (response == null) {
                 // User pressed back button
@@ -75,9 +76,21 @@ final public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void helloFirebase() {
+    private void initializeAuth() {
         if (!isSignedIn()) {
-            showSignIn();
+            /// https://firebase.google.com/docs/auth/android/anonymous-auth
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            auth.signInAnonymously()
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                showSnackbar(R.string.sign_in_success);
+                            } else {
+                                Log.w(MainActivity.class.getCanonicalName(), "signInAnonymously:failure", task.getException());
+                            }
+                        }
+                    });
         } else {
             showSnackbar(R.string.sign_in_success);
         }
@@ -89,8 +102,10 @@ final public class MainActivity extends AppCompatActivity {
     }
 
     private void showSignIn() {
-        AuthUI authUi = getInstance();
-        List<AuthUI.IdpConfig> authProviders = Arrays.asList(new IdpConfig.Builder(GOOGLE_PROVIDER).build());
+        AuthUI authUi = AuthUI.getInstance();
+        List<AuthUI.IdpConfig> authProviders = Arrays.asList(
+                new AuthUI.IdpConfig.Builder(com.firebase.ui.auth.AuthUI.GOOGLE_PROVIDER).build()
+        );
         Intent signInIntent = authUi.createSignInIntentBuilder()
                 .setAvailableProviders(authProviders)
                 .setIsSmartLockEnabled(!BuildConfig.DEBUG)
@@ -100,7 +115,7 @@ final public class MainActivity extends AppCompatActivity {
     }
 
     private void signOut () {
-        AuthUI authUi = getInstance();
+        AuthUI authUi = AuthUI.getInstance();
         authUi.signOut(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
