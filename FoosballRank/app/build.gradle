@@ -50,6 +50,8 @@ dependencies {
 
     implementation thirdPartyDependencies.firebaseDatabase
     implementation thirdPartyDependencies.firebaseUiAuth
+    implementation thirdPartyDependencies.firebaseAuth
+
     implementation thirdPartyDependencies.threeTenBp
     implementation thirdPartyDependencies.glide
     implementation thirdPartyDependencies.dagger

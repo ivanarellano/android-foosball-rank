@@ -25,6 +25,7 @@ ext {
     thirdPartyDependencies = [
         firebaseDatabase: "com.google.firebase:firebase-database:$firebaseVersion",
         firebaseUiAuth: "com.firebaseui:firebase-ui-auth:$firebaseUiVersion",
+        firebaseAuth: "com.google.firebase:firebase-auth:$firebaseVersion",
         threeTenBp: "com.jakewharton.threetenabp:threetenabp:$threeTenBpVersion",
         butterknife: "com.jakewharton:butterknife:$butterknifeVersion",
         butterknifeCompiler: "com.jakewharton:butterknife-compiler:$butterknifeVersion",
