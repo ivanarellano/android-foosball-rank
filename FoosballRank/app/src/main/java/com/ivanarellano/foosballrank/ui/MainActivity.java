@@ -1,6 +1,7 @@
 package com.ivanarellano.foosballrank.ui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -9,8 +10,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.firebase.ui.auth.AuthUI;
@@ -30,6 +32,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.ivanarellano.foosballrank.ui.utils.Tint.tintMenuIcon;
+
 final public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 15;
@@ -44,6 +48,29 @@ final public class MainActivity extends AppCompatActivity {
 
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_rankings);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_add_match, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_add_watch);
+
+        if (menuItem != null) {
+            tintMenuIcon(this, menuItem, R.color.white);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_add_watch) {
+            AddMatchActivity.showActivity(this);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

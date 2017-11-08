@@ -1,13 +1,24 @@
 <resources>
     <string name="app_name">Foosball Rank</string>
+
+    <!--Titles-->
+    <string name="title_add_match">Add Match</string>
     <string name="title_rankings">Rankings</string>
     <string name="title_activity">Activity</string>
     <string name="title_coin_flip">Coin Flip</string>
 
+    <!--Connection Message-->
     <string name="sign_in_cancelled">Sign-in was cancelled.</string>
     <string name="sign_in_success">You are signed in.</string>
     <string name="sign_out_success">You are signed out.</string>
     <string name="sign_out">Sign out</string>
-    
     <string name="no_internet_connection">No internet connection is available.</string>
+
+    <!--Menu-->
+    <string name="add_match">Add Match</string>
+
+    <!--Add Match Screen-->
+    <string name="player_name_hint">Name</string>
+    <string name="player_score_hint">Score</string>
+    <string name="save_match">Save match</string>
 </resources>

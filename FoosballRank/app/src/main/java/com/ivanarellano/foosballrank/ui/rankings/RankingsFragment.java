@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,6 +28,7 @@ import com.ivanarellano.foosballrank.data.remote.Player;
 import com.ivanarellano.foosballrank.data.remote.PlayerMatch;
 import com.ivanarellano.foosballrank.data.remote.PlayerMatches;
 import com.ivanarellano.foosballrank.data.remote.Players;
+import com.ivanarellano.foosballrank.ui.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +39,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.ivanarellano.foosballrank.ui.utils.Tint.tintMenuIcon;
 
 final public class RankingsFragment extends Fragment {
 
@@ -92,14 +98,15 @@ final public class RankingsFragment extends Fragment {
 
     private void initializeRankings() {
         //playersRef.addChildEventListener(playersChildListener);
-        playersRef.addValueEventListener(playersListener);
-//        playerMatchesRef.addValueEventListener(playerMatchesListener);
+        //playersRef.addValueEventListener(playersListener);
+        //playerMatchesRef.addChildEventListener(playerMatchesListener);
 
 //        Query query = FirebaseDatabase.getInstance()
 //                .getReference()
 //                .child(PLAYERS)
 //                .limitToLast(50);
-//
+
+
 //        FirebaseRecyclerOptions<Players> options =
 //                new FirebaseRecyclerOptions.Builder<Players>()
 //                        .setQuery(query, Players.class)

@@ -18,7 +18,7 @@ import com.ivanarellano.foosballrank.data.remote.Players;
 import java.util.ArrayList;
 import java.util.List;
 
-final public class RankingsAdapter extends FirebaseRecyclerAdapter<Players, RankingsViewHolder> {
+final public class RankingsAdapter extends FirebaseRecyclerAdapter<Ranking, RankingsViewHolder> {
 
     public interface RankingClickListener {
         void onClick(@NonNull Ranking ranking);
@@ -31,7 +31,7 @@ final public class RankingsAdapter extends FirebaseRecyclerAdapter<Players, Rank
 //        rankings = new ArrayList<>();
 //    }
 
-    public RankingsAdapter(FirebaseRecyclerOptions<Players> options) {
+    public RankingsAdapter(FirebaseRecyclerOptions<Ranking> options) {
         super(options);
     }
 
@@ -48,8 +48,8 @@ final public class RankingsAdapter extends FirebaseRecyclerAdapter<Players, Rank
 //    }
 
     @Override
-    protected void onBindViewHolder(RankingsViewHolder holder, int position, Players model) {
-        holder.bind(new Ranking("Test", 1.00f), position + 1);
+    protected void onBindViewHolder(RankingsViewHolder holder, int position, Ranking model) {
+        holder.bind(model, position + 1);
     }
 
 //    @Override

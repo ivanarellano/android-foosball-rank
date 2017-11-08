@@ -60,6 +60,7 @@ dependencies {
     implementation thirdPartyDependencies.dagger
     implementation thirdPartyDependencies.daggerSupport
 
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor thirdPartyDependencies.butterknifeCompiler
     annotationProcessor thirdPartyDependencies.glideCompiler
     annotationProcessor thirdPartyDependencies.daggerCompile
