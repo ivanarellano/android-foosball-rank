@@ -2,8 +2,7 @@ package com.ivanarellano.foosballrank.data.remote;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-@IgnoreExtraProperties
-final public class Player {
+public class Player {
 
     public String name;
 
@@ -12,6 +11,14 @@ final public class Player {
     }
 
     public Player(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 }

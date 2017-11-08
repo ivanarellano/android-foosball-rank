@@ -43,24 +43,26 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-
+    implementation supportDependencies.appcompat
+    implementation supportDependencies.recyclerview
     implementation supportDependencies.design
-    implementation supportDependencies.constraintLayout
+    implementation supportDependencies.constraintlayout
 
-    implementation thirdPartyDependencies.firebaseDatabase
+    implementation thirdPartyDependencies.playServicesAuth
+    implementation thirdPartyDependencies.firebaseUiDatabase
     implementation thirdPartyDependencies.firebaseUiAuth
     implementation thirdPartyDependencies.firebaseAuth
+    implementation thirdPartyDependencies.firebaseDatabase
 
+    implementation thirdPartyDependencies.butterknife
     implementation thirdPartyDependencies.threeTenBp
     implementation thirdPartyDependencies.glide
     implementation thirdPartyDependencies.dagger
     implementation thirdPartyDependencies.daggerSupport
-    implementation thirdPartyDependencies.butterknife
 
+    annotationProcessor thirdPartyDependencies.butterknifeCompiler
     annotationProcessor thirdPartyDependencies.glideCompiler
     annotationProcessor thirdPartyDependencies.daggerCompile
-    annotationProcessor thirdPartyDependencies.butterknifeCompiler
 
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.androidTestRunner

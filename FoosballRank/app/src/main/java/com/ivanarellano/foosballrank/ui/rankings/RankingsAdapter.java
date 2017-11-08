@@ -3,28 +3,38 @@ package com.ivanarellano.foosballrank.ui.rankings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.ivanarellano.foosballrank.R;
 import com.ivanarellano.foosballrank.data.Ranking;
+import com.ivanarellano.foosballrank.data.remote.PlayerMatches;
+import com.ivanarellano.foosballrank.data.remote.Players;
 
 import java.util.ArrayList;
 import java.util.List;
 
-final public class RankingsAdapter extends RecyclerView.Adapter<RankingsViewHolder> {
+final public class RankingsAdapter extends FirebaseRecyclerAdapter<Players, RankingsViewHolder> {
 
     public interface RankingClickListener {
         void onClick(@NonNull Ranking ranking);
     }
 
-    private final List<Ranking> rankings;
+//    private final List<Ranking> rankings;
     private RankingClickListener rankingClickListener;
 
-    public RankingsAdapter() {
-        rankings = new ArrayList<>();
+//    public RankingsAdapter() {
+//        rankings = new ArrayList<>();
+//    }
+
+    public RankingsAdapter(FirebaseRecyclerOptions<Players> options) {
+        super(options);
     }
+
 
     @Override
     public RankingsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,21 +42,26 @@ final public class RankingsAdapter extends RecyclerView.Adapter<RankingsViewHold
         return new RankingsViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(RankingsViewHolder holder, int position) {
-        holder.bind(rankings.get(position), position + 1);
-    }
+//    @Override
+//    public void onBindViewHolder(RankingsViewHolder holder, int position) {
+//        holder.bind(rankings.get(position), position + 1);
+//    }
 
     @Override
-    public int getItemCount() {
-        return rankings.size();
+    protected void onBindViewHolder(RankingsViewHolder holder, int position, Players model) {
+        holder.bind(new Ranking("Test", 1.00f), position + 1);
     }
 
-    public void populateRankings(@Nullable List<Ranking> rankings) {
-        this.rankings.clear();
+//    @Override
+//    public int getItemCount() {
+//        return rankings.size();
+//    }
 
-        if (rankings != null) {
-            this.rankings.addAll(rankings);
-        }
-    }
+//    public void populateRankings(@Nullable List<Ranking> rankings) {
+//        this.rankings.clear();
+//
+//        if (rankings != null) {
+//            this.rankings.addAll(rankings);
+//        }
+//    }
 }
