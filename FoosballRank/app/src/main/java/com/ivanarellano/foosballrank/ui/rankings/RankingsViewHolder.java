@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 final public class RankingsViewHolder extends RecyclerView.ViewHolder {
 
-    private static final String RATIO_PATTERN = "#.##";
+    private static final String RATIO_PATTERN = "0.00";
 
     @BindView(R.id.tv_ranking) TextView rankingText;
     @BindView(R.id.tv_name) TextView nameText;
@@ -34,6 +34,6 @@ final public class RankingsViewHolder extends RecyclerView.ViewHolder {
 
         DecimalFormat df = new DecimalFormat(RATIO_PATTERN);
         df.setRoundingMode(BigDecimal.ROUND_CEILING);
-        ratioText.setText(df.format(ranking.getRankRatio()));
+        ratioText.setText(df.format(ranking.getWinPlayRatio()));
     }
 }

@@ -36,7 +36,7 @@ public class EditMatchView extends ConstraintLayout {
         ButterKnife.bind(this, rootView);
     }
 
-    private void setView(int playerNumber, int score, @NonNull String name) {
+    public void setView(int playerNumber, int score, @NonNull String name) {
         playerText.setText(String.format(Locale.getDefault(), "%d", playerNumber));
         scoreInput.getEditText().setText(String.format(Locale.getDefault(), "%d", score));
         nameInput.getEditText().setText(name);

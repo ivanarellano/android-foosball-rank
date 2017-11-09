@@ -1,17 +1,23 @@
 package com.ivanarellano.foosballrank.data.remote;
 
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.PropertyName;
 
-public class Player {
+@IgnoreExtraProperties
+final public class Player {
 
-    public String name;
+    public static final String WIN_PLAY_RATIO = "win-play-ratio";
+
+    private String name;
+    private float winPlayRatio;
 
     public Player() {
         // Default constructor required for calls to DataSnapshot.getValue(Player.class)
     }
 
-    public Player(String name) {
+    public Player(String name, float winPlayRatio) {
         this.name = name;
+        this.winPlayRatio = winPlayRatio;
     }
 
     public String getName() {
@@ -20,5 +26,15 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @PropertyName(WIN_PLAY_RATIO)
+    public float getWinPlayRatio() {
+        return winPlayRatio;
+    }
+
+    @PropertyName(WIN_PLAY_RATIO)
+    public void setWinPlayRatio(float winPlayRatio) {
+        this.winPlayRatio = winPlayRatio;
     }
 }
