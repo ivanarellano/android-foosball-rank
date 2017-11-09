@@ -24,6 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ivanarellano.foosballrank.BuildConfig;
 import com.ivanarellano.foosballrank.R;
+import com.ivanarellano.foosballrank.ui.editor.AddMatchActivity;
 import com.ivanarellano.foosballrank.ui.rankings.RankingsFragment;
 
 import java.util.Arrays;

@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -33,9 +36,15 @@ final public class RankingsFragment extends Fragment {
 
     private Unbinder unbinder;
     private RankingsRecyclerAdapter rankingsAdapter;
-
+    LinearLayoutManager layoutManager;
     public static RankingsFragment newInstance() {
         return new RankingsFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -49,7 +58,9 @@ final public class RankingsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
         rankingsRecyclerView.setLayoutManager(layoutManager);
         rankingsRecyclerView.setHasFixedSize(true);
     }
@@ -58,6 +69,21 @@ final public class RankingsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         initializeRankings();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_rankings, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_reverse_sort) {
+            rankingsAdapter.reverseSortOrder(layoutManager);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

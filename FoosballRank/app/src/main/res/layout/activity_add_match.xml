@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ivanarellano.foosballrank.ui.AddMatchActivity"
+    tools:context="com.ivanarellano.foosballrank.ui.editor.AddMatchActivity"
     tools:layout_editor_absoluteY="81dp">
 
-    <com.ivanarellano.foosballrank.ui.EditMatchView
+    <com.ivanarellano.foosballrank.ui.editor.EditMatchView
         android:id="@+id/edit_player_one"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.ivanarellano.foosballrank.ui.EditMatchView
+    <com.ivanarellano.foosballrank.ui.editor.EditMatchView
         android:id="@+id/edit_player_two"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

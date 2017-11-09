@@ -1,4 +1,4 @@
-package com.ivanarellano.foosballrank.ui;
+package com.ivanarellano.foosballrank.ui.editor;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

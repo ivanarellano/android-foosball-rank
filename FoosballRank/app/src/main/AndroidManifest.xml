@@ -18,7 +18,7 @@
         </activity>
 
         <activity
-            android:name=".ui.AddMatchActivity"
+            android:name=".ui.editor.AddMatchActivity"
             android:label="@string/title_add_match" />
     </application>
 

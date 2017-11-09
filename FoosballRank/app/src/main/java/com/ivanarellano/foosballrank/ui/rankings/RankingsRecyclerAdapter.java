@@ -1,6 +1,7 @@
 package com.ivanarellano.foosballrank.ui.rankings;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +16,14 @@ final public class RankingsRecyclerAdapter extends FirebaseRecyclerAdapter<Ranki
 
     private final static String TAG = RankingsRecyclerAdapter.class.getSimpleName();
 
-    public interface RankingClickListener {
-        void onClick(@NonNull Ranking ranking);
-    }
-
-    private RankingClickListener rankingClickListener;
     private boolean isDescending;
+    private boolean isReversedLayout;
 
     public RankingsRecyclerAdapter(FirebaseRecyclerOptions<Ranking> options) {
         super(options);
 
-        isDescending = true;
+        isDescending = false;
+        isReversedLayout = true;
     }
 
     @Override
@@ -35,27 +33,36 @@ final public class RankingsRecyclerAdapter extends FirebaseRecyclerAdapter<Ranki
     }
 
     @Override
-    protected void onBindViewHolder(final RankingsViewHolder holder, final int position, Ranking model) {
-        holder.bind(model, isDescending ? position + 1 : getItemCount() - position);
+    protected void onBindViewHolder(final RankingsViewHolder holder, int position, Ranking model) {
+        Log.d(TAG, "" + position);
+        int rankingIndex;
+
+        if (isDescending && isReversedLayout) {
+            rankingIndex = position + 1;
+        } else {
+            rankingIndex = getItemCount() - position;
+        }
+
+        holder.bind(model, rankingIndex);
 
         /// https://stackoverflow.com/questions/34110497/how-to-implement-a-setonitemclicklistener-firebaserecyclerviewadapter
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.w(TAG, "You clicked on " + position);
+                Log.w(TAG, "You clicked on " + holder.getAdapterPosition());
                 Log.w(TAG, holder.nameText.getText().toString());
             }
         });
     }
 
-    @Override
-    public Ranking getItem(int position) {
-        /// https://github.com/firebase/FirebaseUI-Android/issues/310#issuecomment-247816246
-        return super.getItem(isDescending ? getItemCount() - 1 - position : position);
-    }
+    public void reverseSortOrder(@NonNull LinearLayoutManager layoutManager) {
+        isDescending = !isDescending;
 
-    public void sortOrder(boolean isDescending) {
-        this.isDescending = isDescending;
-        notifyDataSetChanged();
+        layoutManager.setReverseLayout(!layoutManager.getReverseLayout());
+        layoutManager.setStackFromEnd(layoutManager.getReverseLayout());
+
+        isReversedLayout = layoutManager.getReverseLayout();
+
+        Log.d(TAG, "isDescending? : "+ this.isDescending + " .. isReversed? : " + isReversedLayout);
     }
 }

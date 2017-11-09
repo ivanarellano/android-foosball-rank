@@ -21,4 +21,7 @@
     <string name="player_name_hint">Name</string>
     <string name="player_score_hint">Score</string>
     <string name="save_match">Save match</string>
+
+    <!--Rankings Screen-->
+    <string name="reverse_sort">Reverse sort</string>
 </resources>
